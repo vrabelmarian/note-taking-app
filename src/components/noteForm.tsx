@@ -19,7 +19,6 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
-    console.log('lmao')
     onSubmit({
       title: title,
       body: body,
