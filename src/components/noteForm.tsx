@@ -52,15 +52,15 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
                 }}
                 isMulti
                 options={allTags.map(tag => {
-                  return { label: tag.label, id: tag.id }
+                  return { label: tag.label, value: tag.id }
                 })}
                 value={tags.map(tag => {
-                  return { label: tag.label, id: tag.id }
+                  return { label: tag.label, value: tag.id }
                 })}
                 onChange={tags => {
                   setTags(
                     tags.map(tag => {
-                      return { label: tag.label, id: tag.id }
+                      return { label: tag.label, id: tag.value }
                     }),
                   )
                 }}
