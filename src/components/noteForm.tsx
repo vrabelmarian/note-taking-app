@@ -2,12 +2,15 @@ import { useNavigate } from 'react-router-dom'
 import CreatableReactSelect from 'react-select/creatable'
 import { NoteData, Tag } from '../types'
 import { FormEvent, useState } from 'react'
+import { v4 as uuidV4 } from 'uuid'
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void
+  onCreateTag: (tag: Tag) => void
+  allTags: Tag[]
 }
 
-const NoteForm = ({ onSubmit }: NoteFormProps) => {
+const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
   const navigate = useNavigate()
 
   const [title, setTitle] = useState('')
@@ -43,7 +46,15 @@ const NoteForm = ({ onSubmit }: NoteFormProps) => {
             <div className='flex flex-col w-1/2 gap-2'>
               <h3 className='text-3xl'>Tags</h3>
               <CreatableReactSelect
+                onCreateOption={label => {
+                  const createdTag = { id: uuidV4(), label }
+                  onCreateTag(createdTag)
+                  setTags(prevTags => [...prevTags, createdTag])
+                }}
                 isMulti
+                options={allTags.map(tag => {
+                  return { label: tag.label, id: tag.id }
+                })}
                 value={tags.map(tag => {
                   return { label: tag.label, id: tag.id }
                 })}
