@@ -1,0 +1,24 @@
+import { Tag } from '../types'
+
+type NoteCardProps = {
+  title: string
+  tags: Tag[]
+  id: string
+}
+
+const NoteCard = ({ title, tags, id }: NoteCardProps) => {
+  return (
+    <div className='border-gray-400 border rounded-md h-32 flex flex-col justify-center items-center shadow-md'>
+      <div className='mb-2 text-lg font-bold'>{title}</div>
+      <div>
+        {tags.map((tag, index) => (
+          <span key={index} className='bg-blue-500 text-white text-sm font-medium px-3 py-1 rounded-md mx-1'>
+            {tag.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default NoteCard
