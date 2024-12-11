@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Note, Tag } from '../types'
 import NoteCard from './noteCard'
 import ReactSelect from 'react-select/creatable'
@@ -11,6 +11,17 @@ type NotesListProps = {
 const NotesList = ({ notes, allTags }: NotesListProps) => {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState<Tag[]>([])
+
+  //filter notes to those that include the searched title as note.title
+  //and has every searched tag as note.tags (compare with ids)
+  const filteredNotes = useMemo(() => {
+    return notes.filter(note => {
+      return (
+        (title === '' || note.title.toLowerCase().includes(title.toLowerCase())) &&
+        (tags.length === 0 || tags.every(tag => note.tags.some(noteTag => noteTag.id === tag.id)))
+      )
+    })
+  }, [title, tags, notes])
 
   return (
     <div className='m-3'>
@@ -61,7 +72,7 @@ const NotesList = ({ notes, allTags }: NotesListProps) => {
         </div>
       </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:ml-6 sm:mr-6 ml-3 mr-3'>
-        {notes.map(note => (
+        {filteredNotes.map(note => (
           <NoteCard key={note.id} title={note.title} tags={note.tags} id={note.id} />
         ))}
       </div>
