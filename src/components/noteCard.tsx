@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { Tag } from '../types'
 
 type NoteCardProps = {
@@ -7,9 +8,13 @@ type NoteCardProps = {
 }
 
 const NoteCard = ({ title, tags, id }: NoteCardProps) => {
-  console.log(id)
+  const navigate = useNavigate()
+
   return (
-    <div className='border-gray-400 border rounded-md h-32 flex flex-col justify-center items-center shadow-md transition-transform transform hover:shadow-lg hover:border-blue-500'>
+    <div
+      className='border-gray-400 border rounded-md h-32 flex flex-col justify-center items-center shadow-md transition-transform transform hover:shadow-lg hover:border-blue-500'
+      onClick={() => navigate(`/${id}`)}
+    >
       <div className='mb-2 text-lg font-bold'>{title}</div>
       <div>
         {tags.map((tag, index) => (

@@ -5,6 +5,8 @@ import { useLocalStorage } from './useLocalStorage'
 import { v4 as uuidV4 } from 'uuid'
 import NotesList from './components/notesList'
 import { useMemo } from 'react'
+import { NoteLayout } from './components/noteLayout'
+import Note from './components/note'
 
 function App() {
   const navigate = useNavigate()
@@ -36,6 +38,9 @@ function App() {
         <Routes>
           <Route path='/' element={<NotesList notes={notesWithTags} allTags={tags} />} />
           <Route path='/new' element={<CreateNote onSubmit={createNote} onCreateTag={createTag} allTags={tags} />} />
+          <Route path='/:id' element={<NoteLayout notes={notesWithTags} />}>
+            <Route index element={<Note />} />
+          </Route>
         </Routes>
       </div>
     </>
