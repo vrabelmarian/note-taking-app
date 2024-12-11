@@ -34,7 +34,7 @@ function App() {
     <>
       <div className=''>
         <Routes>
-          <Route path='/' element={<NotesList notes={notesWithTags} />} />
+          <Route path='/' element={<NotesList notes={notesWithTags} allTags={tags} />} />
           <Route path='/new' element={<CreateNote onSubmit={createNote} onCreateTag={createTag} allTags={tags} />} />
         </Routes>
       </div>
