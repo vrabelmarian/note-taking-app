@@ -7,8 +7,9 @@ type NoteCardProps = {
 }
 
 const NoteCard = ({ title, tags, id }: NoteCardProps) => {
+  console.log(id)
   return (
-    <div className='border-gray-400 border rounded-md h-32 flex flex-col justify-center items-center shadow-md'>
+    <div className='border-gray-400 border rounded-md h-32 flex flex-col justify-center items-center shadow-md transition-transform transform hover:shadow-lg hover:border-blue-500'>
       <div className='mb-2 text-lg font-bold'>{title}</div>
       <div>
         {tags.map((tag, index) => (
