@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Note, Tag } from '../types'
 import NoteCard from './noteCard'
 import ReactSelect from 'react-select/creatable'
+import { useNavigate } from 'react-router-dom'
 
 type NotesListProps = {
   notes: Note[]
@@ -11,6 +12,8 @@ type NotesListProps = {
 const NotesList = ({ notes, allTags }: NotesListProps) => {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState<Tag[]>([])
+
+  const navigate = useNavigate()
 
   //filter notes to those that include the searched title as note.title
   //and has every searched tag as note.tags (compare with ids)
@@ -28,7 +31,12 @@ const NotesList = ({ notes, allTags }: NotesListProps) => {
       <div className='flex justify-between items-center flex-col md:flex-row mb-4'>
         <h1 className='text-3xl mb-2 md:mb-1'>Notes</h1>
         <div className='flex space-x-4'>
-          <button className='bg-green-500 px-4 rounded py-2 font-bold border-green-500 border-2'>Create</button>
+          <button
+            className='bg-green-500 px-4 rounded py-2 font-bold border-green-500 border-2'
+            onClick={() => navigate('/new')}
+          >
+            Create
+          </button>
           <button className='px-4 rounded py-2 font-bold border-gray-600 border-2'>Back</button>
         </div>
       </div>
