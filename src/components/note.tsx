@@ -3,7 +3,11 @@ import ReactMarkdown from 'react-markdown'
 import { useNote } from './noteLayout'
 import remarkGfm from 'remark-gfm'
 
-const Note = () => {
+type NoteProps = {
+  onDeleteNote: (id: string) => void
+}
+
+const Note = ({ onDeleteNote }: NoteProps) => {
   const note = useNote()
 
   const navigate = useNavigate()
@@ -27,6 +31,15 @@ const Note = () => {
             className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md'
           >
             Edit
+          </button>
+          <button
+            onClick={() => {
+              onDeleteNote(note.id)
+              navigate('/')
+            }}
+            className='bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md'
+          >
+            Delete
           </button>
           <button
             onClick={() => navigate(-1)}
