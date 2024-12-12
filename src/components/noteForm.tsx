@@ -1,28 +1,28 @@
 import { useNavigate } from 'react-router-dom'
 import CreatableReactSelect from 'react-select/creatable'
 import { NoteData, Tag } from '../types'
-import { FormEvent, useState } from 'react'
+import { FormEvent, useRef, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'
 
 type NoteFormProps = {
   onSubmit: (data: NoteData) => void
   onCreateTag: (tag: Tag) => void
   allTags: Tag[]
-}
+} & Partial<NoteData>
 
-const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
+const NoteForm = ({ onSubmit, onCreateTag, allTags, title = '', body = '', tags = [] }: NoteFormProps) => {
   const navigate = useNavigate()
 
-  const [title, setTitle] = useState('')
-  const [body, setBody] = useState('')
-  const [tags, setTags] = useState<Tag[]>([])
+  const titleRef = useRef<HTMLInputElement>(null)
+  const bodyRef = useRef<HTMLTextAreaElement>(null)
+  const [noteTags, setTags] = useState<Tag[]>(tags)
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
     onSubmit({
-      title: title,
-      body: body,
-      tags: tags,
+      title: titleRef.current!.value,
+      body: bodyRef.current!.value,
+      tags: noteTags,
     })
   }
 
@@ -35,8 +35,8 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
               <h3 className='text-3xl'>Title</h3>
               <input
                 type='text'
-                value={title}
-                onChange={e => setTitle(e.target.value)}
+                defaultValue={title}
+                ref={titleRef}
                 className='border-black border-2 rounded-md h-10 focus:outline-none focus:border-blue-500 focus:border-4 p-2 focus:p-1'
                 required
                 placeholder='Note title'
@@ -54,7 +54,7 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
                 options={allTags.map(tag => {
                   return { label: tag.label, value: tag.id }
                 })}
-                value={tags.map(tag => {
+                value={noteTags.map(tag => {
                   return { label: tag.label, value: tag.id }
                 })}
                 onChange={tags => {
@@ -79,8 +79,8 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags }: NoteFormProps) => {
             <h3 className='text-3xl mt-2'>Note</h3>
             <textarea
               rows={15}
-              value={body}
-              onChange={e => setBody(e.target.value)}
+              defaultValue={body}
+              ref={bodyRef}
               className='border-black border-2 rounded-md focus:outline-none focus:border-blue-500 focus:border-4 p-2 resize-none focus:p-1'
               required
               placeholder='Note body'

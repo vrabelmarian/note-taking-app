@@ -13,7 +13,14 @@ const NoteEdit = ({ onSubmit, onCreateTag, allTags }: NoteEditProps) => {
   return (
     <>
       <div className='mb-4'>Edit Note</div>
-      <NoteForm onSubmit={data => onSubmit(note.id, data)} onCreateTag={onCreateTag} allTags={allTags} />
+      <NoteForm
+        title={note.title}
+        body={note.body}
+        tags={note.tags}
+        onSubmit={data => onSubmit(note.id, data)}
+        onCreateTag={onCreateTag}
+        allTags={allTags}
+      />
     </>
   )
 }
