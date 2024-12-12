@@ -52,11 +52,32 @@ function App() {
     setTags(prev => [...prev, tag])
   }
 
+  function editTag(id: string, label: string) {
+    setTags(prevTags => {
+      return prevTags.map(tag => {
+        if (tag.id === id) {
+          return { ...tag, label }
+        } else {
+          return tag
+        }
+      })
+    })
+  }
+
+  function deleteTag(id: string) {
+    setTags(prevTags => {
+      return prevTags.filter(tag => tag.id !== id)
+    })
+  }
+
   return (
     <>
       <div className=''>
         <Routes>
-          <Route path='/' element={<NotesList notes={notesWithTags} allTags={tags} />} />
+          <Route
+            path='/'
+            element={<NotesList notes={notesWithTags} allTags={tags} onEditTag={editTag} onDeleteTag={deleteTag} />}
+          />
           <Route path='/new' element={<CreateNote onSubmit={createNote} onCreateTag={createTag} allTags={tags} />} />
           <Route path='/:id' element={<NoteLayout notes={notesWithTags} />}>
             <Route index element={<Note onDeleteNote={deleteNote} />} />

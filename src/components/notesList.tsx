@@ -3,15 +3,19 @@ import { Note, Tag } from '../types'
 import NoteCard from './noteCard'
 import ReactSelect from 'react-select/creatable'
 import { useNavigate } from 'react-router-dom'
+import EditTagsModal from './editTagsModal'
 
 type NotesListProps = {
   notes: Note[]
   allTags: Tag[]
+  onDeleteTag: (id: string) => void
+  onEditTag: (id: string, label: string) => void
 }
 
-const NotesList = ({ notes, allTags }: NotesListProps) => {
+const NotesList = ({ notes, allTags, onDeleteTag, onEditTag }: NotesListProps) => {
   const [title, setTitle] = useState('')
   const [tags, setTags] = useState<Tag[]>([])
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] = useState(false)
 
   const navigate = useNavigate()
 
@@ -37,7 +41,12 @@ const NotesList = ({ notes, allTags }: NotesListProps) => {
           >
             Create
           </button>
-          <button className='px-4 rounded py-2 font-bold border-gray-600 border-2'>Back</button>
+          <button
+            className='px-4 rounded py-2 font-bold border-gray-600 border-2'
+            onClick={() => setEditTagsModalIsOpen(true)}
+          >
+            Edit Tags
+          </button>
         </div>
       </div>
       <div className='w-full flex flex-row justify-evenly gap-6 mb-8'>
@@ -84,6 +93,13 @@ const NotesList = ({ notes, allTags }: NotesListProps) => {
           <NoteCard key={note.id} title={note.title} tags={note.tags} id={note.id} />
         ))}
       </div>
+      <EditTagsModal
+        onEditTag={onEditTag}
+        onDeleteTag={onDeleteTag}
+        show={editTagsModalIsOpen}
+        handleClose={() => setEditTagsModalIsOpen(false)}
+        allTags={allTags}
+      />
     </div>
   )
 }
