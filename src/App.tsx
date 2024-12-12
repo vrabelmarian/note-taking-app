@@ -7,6 +7,7 @@ import NotesList from './components/notesList'
 import { useMemo } from 'react'
 import { NoteLayout } from './components/noteLayout'
 import Note from './components/note'
+import NoteEdit from './components/noteEdit'
 
 function App() {
   const navigate = useNavigate()
@@ -28,6 +29,19 @@ function App() {
     navigate('/')
   }
 
+  const editNote = (id: string, { tags, ...data }: NoteData) => {
+    setNotes(prevNotes => {
+      return prevNotes.map(note => {
+        if (note.id == id) {
+          return { ...note, ...data, tagsIds: tags.map(tag => tag.id) }
+        } else {
+          return note
+        }
+      })
+    })
+    navigate('/')
+  }
+
   const createTag = (tag: Tag) => {
     setTags(prev => [...prev, tag])
   }
@@ -40,6 +54,7 @@ function App() {
           <Route path='/new' element={<CreateNote onSubmit={createNote} onCreateTag={createTag} allTags={tags} />} />
           <Route path='/:id' element={<NoteLayout notes={notesWithTags} />}>
             <Route index element={<Note />} />
+            <Route path='edit' element={<NoteEdit onSubmit={editNote} onCreateTag={createTag} allTags={tags} />} />
           </Route>
         </Routes>
       </div>

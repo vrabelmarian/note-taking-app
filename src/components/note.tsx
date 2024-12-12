@@ -21,12 +21,20 @@ const Note = () => {
             ))}
           </div>
         </div>
-        <button
-          onClick={() => navigate(-1)}
-          className='mt-4 md:mt-0 bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md'
-        >
-          Back
-        </button>
+        <div className='flex space-x-4 mt-4 md:mt-0'>
+          <button
+            onClick={() => navigate(`/${note.id}/edit`)}
+            className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md'
+          >
+            Edit
+          </button>
+          <button
+            onClick={() => navigate(-1)}
+            className='bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-md'
+          >
+            Back
+          </button>
+        </div>
       </div>
       <div className='markdown'>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{note.body}</ReactMarkdown>
