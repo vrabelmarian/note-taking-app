@@ -1,3 +1,42 @@
+# React + TypeScript + Vite Note-Taking App
+
+This is a **note-taking application** built with React, TypeScript, and Vite. The app supports **Markdown formatting**, the ability to add and edit tags, delete notes, and search through titles or tags. It's fully responsive and styled using Tailwind CSS. Building upon WebDevSimplified's project, I've incorporated extra features and cutting-edge technologies.
+
+## Features
+
+- Create, edit, and delete notes.
+- Add and manage tags for better organization.
+- Format notes using **Markdown** with live preview.
+- Search through notes by title or tags.
+- Fully responsive UI for seamless use on any device.
+- Built with modern technologies: **TypeScript**, **Vite**, **React**, and **Tailwind CSS**.
+
+---
+
+## How to Run the Project
+
+Follow these steps to set up and run the project locally:
+
+```
+git clone <repository-url>
+cd <repository-directory>
+npm install
+npm run dev
+```
+
+---
+
+## Preview
+
+![Creating a Note](./gifs/createNote.gif)
+![Editing a Note](./gifs/editNote.gif)
+![Deleting a Note](./gifs/deleteNote.gif)
+![Searching](./gifs/searching.gif)
+![Editing Tags](./gifs/editTags.gif)
+![Responsive Design](./gifs/resposiveDesign.gif)
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
