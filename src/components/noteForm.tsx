@@ -30,8 +30,8 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags, title = '', body = '', tags 
     <>
       <div className='m-3'>
         <form onSubmit={handleSubmit}>
-          <div className='w-full flex flex-row justify-evenly gap-6'>
-            <div className='flex flex-col w-1/2 gap-2'>
+          <div className='w-full flex flex-col md:flex-row justify-evenly gap-6'>
+            <div className='flex flex-col w-full md:w-1/2 gap-2'>
               <h3 className='text-3xl'>Title</h3>
               <input
                 type='text'
@@ -42,7 +42,7 @@ const NoteForm = ({ onSubmit, onCreateTag, allTags, title = '', body = '', tags 
                 placeholder='Note title'
               />
             </div>
-            <div className='flex flex-col w-1/2 gap-2'>
+            <div className='flex flex-col w-full md:w-1/2 gap-2'>
               <h3 className='text-3xl'>Tags</h3>
               <CreatableReactSelect
                 onCreateOption={label => {

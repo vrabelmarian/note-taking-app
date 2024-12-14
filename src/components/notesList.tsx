@@ -49,8 +49,8 @@ const NotesList = ({ notes, allTags, onDeleteTag, onEditTag }: NotesListProps) =
           </button>
         </div>
       </div>
-      <div className='w-full flex flex-row justify-evenly gap-6 mb-8'>
-        <div className='flex flex-col w-1/2 gap-2'>
+      <div className='w-full flex flex-col md:flex-row justify-evenly gap-6 mb-8'>
+        <div className='flex flex-col w-full md:w-1/2 gap-2'>
           <h3 className='text-xl'>Title</h3>
           <input
             type='text'
@@ -60,7 +60,7 @@ const NotesList = ({ notes, allTags, onDeleteTag, onEditTag }: NotesListProps) =
             onChange={e => setTitle(e.target.value)}
           />
         </div>
-        <div className='flex flex-col w-1/2 gap-2'>
+        <div className='flex flex-col w-full md:w-1/2 gap-2'>
           <h3 className='text-xl'>Tags</h3>
           <ReactSelect
             isMulti
@@ -88,7 +88,7 @@ const NotesList = ({ notes, allTags, onDeleteTag, onEditTag }: NotesListProps) =
           />
         </div>
       </div>
-      <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:ml-6 sm:mr-6 ml-3 mr-3'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 md:ml-6 md:mr-6 ml-3 mr-3'>
         {filteredNotes.map(note => (
           <NoteCard key={note.id} title={note.title} tags={note.tags} id={note.id} />
         ))}
