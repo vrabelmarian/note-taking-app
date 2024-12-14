@@ -8,6 +8,8 @@ import { useMemo } from 'react'
 import { NoteLayout } from './components/noteLayout'
 import Note from './components/note'
 import NoteEdit from './components/noteEdit'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const navigate = useNavigate()
@@ -23,51 +25,81 @@ function App() {
   }, [notes, tags])
 
   const createNote = (data: NoteData) => {
-    setNotes(prevNotes => {
-      return [...prevNotes, { ...data, id: uuidV4(), tagsIds: data.tags.map(tag => tag.id) }]
-    })
-    navigate('/')
+    try {
+      setNotes(prevNotes => {
+        return [...prevNotes, { ...data, id: uuidV4(), tagsIds: data.tags.map(tag => tag.id) }]
+      })
+      toast.success('Note created successfully!')
+      navigate('/')
+    } catch (error) {
+      toast.error('Failed to create note. ' + error)
+    }
   }
 
   const editNote = (id: string, { tags, ...data }: NoteData) => {
-    setNotes(prevNotes => {
-      return prevNotes.map(note => {
-        if (note.id == id) {
-          return { ...note, ...data, tagsIds: tags.map(tag => tag.id) }
-        } else {
-          return note
-        }
+    try {
+      setNotes(prevNotes => {
+        return prevNotes.map(note => {
+          if (note.id === id) {
+            return { ...note, ...data, tagsIds: tags.map(tag => tag.id) }
+          } else {
+            return note
+          }
+        })
       })
-    })
-    navigate('/')
+      toast.success('Note updated successfully!')
+      navigate('/')
+    } catch (error) {
+      toast.error('Failed to update note. ' + error)
+    }
   }
 
   const deleteNote = (id: string) => {
-    setNotes(prevNotes => {
-      return prevNotes.filter(note => note.id !== id)
-    })
+    try {
+      setNotes(prevNotes => {
+        return prevNotes.filter(note => note.id !== id)
+      })
+      toast.success('Note deleted successfully!')
+    } catch (error) {
+      toast.error('Failed to delete note. ' + error)
+    }
   }
 
   const createTag = (tag: Tag) => {
-    setTags(prev => [...prev, tag])
+    try {
+      setTags(prev => [...prev, tag])
+      toast.success('Tag created successfully!')
+    } catch (error) {
+      toast.error('Failed to create tag. ' + error)
+    }
   }
 
   function editTag(id: string, label: string) {
-    setTags(prevTags => {
-      return prevTags.map(tag => {
-        if (tag.id === id) {
-          return { ...tag, label }
-        } else {
-          return tag
-        }
+    try {
+      setTags(prevTags => {
+        return prevTags.map(tag => {
+          if (tag.id === id) {
+            return { ...tag, label }
+          } else {
+            return tag
+          }
+        })
       })
-    })
+      toast.success('Tag updated successfully!')
+    } catch (error) {
+      toast.error('Failed to update tag. ' + error)
+    }
   }
 
   function deleteTag(id: string) {
-    setTags(prevTags => {
-      return prevTags.filter(tag => tag.id !== id)
-    })
+    try {
+      setTags(prevTags => {
+        return prevTags.filter(tag => tag.id !== id)
+      })
+      toast.success('Tag deleted successfully!')
+    } catch (error) {
+      toast.error('Failed to delete tag. ' + error)
+    }
   }
 
   return (
@@ -84,6 +116,16 @@ function App() {
             <Route path='edit' element={<NoteEdit onSubmit={editNote} onCreateTag={createTag} allTags={tags} />} />
           </Route>
         </Routes>
+        <ToastContainer
+          position='bottom-left'
+          autoClose={3000}
+          hideProgressBar
+          closeOnClick
+          pauseOnHover
+          draggable
+          icon={false}
+          theme='light'
+        />
       </div>
     </>
   )
