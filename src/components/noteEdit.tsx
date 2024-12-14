@@ -12,7 +12,6 @@ const NoteEdit = ({ onSubmit, onCreateTag, allTags }: NoteEditProps) => {
   const note = useNote()
   return (
     <>
-      <div className='mb-4'>Edit Note</div>
       <NoteForm
         title={note.title}
         body={note.body}
